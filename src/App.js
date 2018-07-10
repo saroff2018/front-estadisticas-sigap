@@ -296,17 +296,17 @@ class App extends Component {
     componentDidMount(){ // usado en react para montar todo antes del render
 
         const search = window.location.search.substring(1);
-        var urlChart = 'https://back-estadisticas.herokuapp.com/apiController/importe?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+this.state.listaConceptos;
-        var urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+this.state.listaConceptos;
-        var urlConceptos = 'https://back-estadisticas.herokuapp.com/apiController/listaConceptos';
+        var urlChart = 'https://back-estadisticas.herokuapp.com/apiController/importe?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+this.state.listaConceptos;//pone el dominio para obtener la informacion del ChartFusion
+        var urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+this.state.listaConceptos;//pone el dominio para obtener la informacion de la tabla
+        var urlConceptos = 'https://back-estadisticas.herokuapp.com/apiController/listaConceptos';//pone el dominio para obtener la lista de los conceptos
 
-        this.getConceptsData(encodeURI(urlConceptos));
-        this.getChartData(encodeURI(urlChart));
+        this.(encodeURI(urlConceptos));//hace el llamado al dominio donde retornara respuesta de la funcion
+        this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
         if(search !== ""){
             this.setState({
                 usuario: JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }).nombre
             }, function(){
-                this.getTableData(encodeURI(urlTable));
+                this.getTableData(encodeURI(urlTable));//hace el llamado al dominio donde retornara respuesta de la funcion
             });
         }
     }
@@ -315,26 +315,26 @@ class App extends Component {
         //return event => (
         //console.log(this.state.listaConceptosEncontrados);
         //console.log(this.state.listaConceptosEncontrados.substring(0, this.state.listaConceptosEncontrados.length - 2));
-        var urlChart = '';
-        var urlTable = '';
+        var urlChart = '';//pone el dominio vacio al comienzo para obtener la informacion del ChartFusion
+        var urlTable = '';//pone el dominio vacion al comienzo para obtener la informacion del ChartFusion
         this.setState({
             isTableLoaded: false,
             isUsed: true,
             listaConceptosEncontrados : "",
             subtitulo : ""
         });
-        var urlConceptos = 'https://back-estadisticas.herokuapp.com/apiController/listaConceptos';
+        var urlConceptos = 'https://back-estadisticas.herokuapp.com/apiController/listaConceptos';//pone el dominio para obtener la informacion de los conceptos
         if(this.state.opcion === 'fecha'){
-            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;
+            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion de las tablas
             if(this.state.infoType === "operaciones"){
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 var fi = new Date(this.state.fechaInicio*1000);
                 var ff = new Date(this.state.fechaFin*1000);
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR NUMERO DE OPERACIONES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 this.setState({
                     subtitulo : (("DEL "+
                     (fi.getUTCDate()<=9 ? ("0"+fi.getUTCDate()) : (fi.getUTCDate()))
@@ -347,14 +347,14 @@ class App extends Component {
                 });
             }
             else{
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/importe?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/importe?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 fi = new Date(this.state.fechaInicio*1000);
                 ff = new Date(this.state.fechaFin*1000);
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR NUMERO DE IMPORTES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 this.setState({
                     subtitulo : (("DEL "+
                     (fi.getUTCDate()<=9 ? ("0"+fi.getUTCDate()) : (fi.getUTCDate()))
@@ -368,14 +368,14 @@ class App extends Component {
             }
         }
         else if(this.state.opcion === 'months'){
-            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaMonth/?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;
+            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaMonth/?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion de la tabla
             if(this.state.infoType === "operaciones"){
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/cantidadPorPeriodoMes?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/cantidadPorPeriodoMes?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR NUMERO DE OPERACIONES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 if(this.state.mesini === this.state.mesfin){
                     this.setState({
                         subtitulo : ( ( this.retornarMes(this.state.mesini) + " DEL " + this.state.anio ) /*+"<br/> CONCEPTOS : " + this.state.listaConceptosEncontrados.substring(0, this.state.listaConceptosEncontrados.length - 2)*/)
@@ -387,12 +387,12 @@ class App extends Component {
                 }
             }
             else{
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/totalPorPeriodoMes/?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/totalPorPeriodoMes/?year='+this.state.anio+'&mes_inicio='+this.state.mesini+'&mes_fin='+this.state.mesfin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR IMPORTES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 if(this.state.mesini === this.state.mesfin){
                     this.setState({
                         subtitulo : ( ( this.retornarMes(this.state.mesini) + " DEL " + this.state.anio ) /*+"<br/> CONCEPTOS : " + this.state.listaConceptosEncontrados.substring(0, this.state.listaConceptosEncontrados.length - 2)*/)
@@ -404,14 +404,14 @@ class App extends Component {
                 }
             }
         }else{
-            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaYear/?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;
+            urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaYear/?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion de la tabla
             if(this.state.infoType === "operaciones"){
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/cantidadPorPeriodoAnio?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/cantidadPorPeriodoAnio?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR NUMERO DE OPERACIONES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 if(this.state.anioini === this.state.aniofin){
                     this.setState({
                         subtitulo : (("EN EL AÑO " + this.state.anioini) /*+  "<br/> CONCEPTOS : " + this.state.listaConceptosEncontrados.substring(0, this.state.listaConceptosEncontrados.length - 2)*/)
@@ -426,12 +426,12 @@ class App extends Component {
                 }
             }
             else{
-                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/montoPorPeriodoAnio/?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;
+                urlChart = 'https://back-estadisticas.herokuapp.com/apiController/montoPorPeriodoAnio/?year_inicio='+this.state.anioini+'&year_fin='+this.state.aniofin+'&conceptos='+listaFinal;//pone el dominio para obtener la informacion del ChartFusion
                 this.setState({
                     isChartLoaded : false,
                     titulo: 'REPORTE ESTADISTICO POR IMPORTES'
                 });
-                this.getChartData(encodeURI(urlChart));
+                this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
                 if(this.state.anioini === this.state.aniofin){
                     this.setState({
                         subtitulo : (("EN EL AÑO " + this.state.anioini) /*+  "<br/> CONCEPTOS : " + this.state.listaConceptosEncontrados.substring(0, this.state.listaConceptosEncontrados.length - 2)*/)
@@ -446,12 +446,12 @@ class App extends Component {
                 }
             }
         }
-        this.getTableData(encodeURI(urlTable));
-        this.getConceptsData(encodeURI(urlConceptos));//);
+        this.getTableData(encodeURI(urlTable));//hace el llamado al dominio donde retornara respuesta de la funcion
+        this.getConceptsData(encodeURI(urlConceptos));//hace el llamado al dominio donde retornara respuesta de la funcion//);
     }
 
     getChartData(urlChart){ // obtiene la data del chartData haciendo fetch al URL que se mande (donde se contiene la funcion a usarse)
-        fetch(urlChart)
+        fetch(urlChart)//hace el llamado al dominio que se le envió donde retornara respuesta de la funcion
         .then((response)=>{
             return response.json();
         })
@@ -490,7 +490,7 @@ class App extends Component {
 
 
     getConceptsData(urlConcepts){ // obtiene los conceptos de la misma forma que el chartData ahora para los conceptsData. pone isConceptsLoaded->true renderizando el componente otra vez
-        fetch(urlConcepts)
+        fetch(urlConcepts)//hace el llamado al dominio enviado como parámetro donde retornara respuesta de la funcion
         .then((response)=>{
             return response.json();
         })
@@ -517,7 +517,7 @@ class App extends Component {
     }
 
     getTableData(urlTable) {// obtiene los datos para la tabla de la misma forma que el chartData ahora para los tableData. pone isTableLoaded->true renderizando el componente otra vez
-        fetch(urlTable)
+        fetch(urlTable)//hace el llamado al dominio enviado como parámetro donde retornara respuesta de la funcion
             .then((response) => {
                 return response.json();
             })
@@ -549,8 +549,8 @@ class App extends Component {
             +"/"+(ff.getUTCDate()<=8 ? ("0"+(ff.getUTCMonth()+1)) : (ff.getUTCMonth()+1))
             +"/"+ff.getUTCFullYear())
         });
-        this.getChartData('https://back-estadisticas.herokuapp.com/apiController/importe/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin);
-        this.getTableData('https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin);
+        this.getChartData('https://back-estadisticas.herokuapp.com/apiController/importe/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin);//hace el llamado al dominio donde retornara respuesta de la funcion
+        this.getTableData('https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin);//hace el llamado al dominio donde retornara respuesta de la funcion
     }
 
     submitYearFunction(){
@@ -559,8 +559,10 @@ class App extends Component {
             isTableLoaded : false,
             titulo : ("IMPORTES DE LOS MESES DEL AÑO " + this.state.anio)
         });
-        this.getChartData('https://back-estadisticas.herokuapp.com/apiController/devolverAnioImporte/?year='+this.state.anio);
-        this.getTableData('https://back-estadisticas.herokuapp.com/ApiController/tablaYear/?year='+this.state.anio);
+        this.getChartData('https://back-estadisticas.herokuapp.com/apiController/devolverAnioImporte/?year='+this.state.anio);//hace el llamado al dominio donde retornara respuesta de la funcion
+    }
+        this.getTableData('https://back-estadisticas.herokuapp.com/ApiController/tablaYear/?year='+this.state.anio);//hace el llamado al dominio donde retornara respuesta de la funcion
+    }
     }
 
     render() { // render  del modulo estadistico
