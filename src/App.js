@@ -300,7 +300,7 @@ class App extends Component {
         var urlTable = 'https://back-estadisticas.herokuapp.com/ApiController/tablaFechas/?inicio='+this.state.fechaInicio+'&fin='+this.state.fechaFin+'&conceptos='+this.state.listaConceptos;//pone el dominio para obtener la informacion de la tabla
         var urlConceptos = 'https://back-estadisticas.herokuapp.com/apiController/listaConceptos';//pone el dominio para obtener la lista de los conceptos
 
-        this.(encodeURI(urlConceptos));//hace el llamado al dominio donde retornara respuesta de la funcion
+        this.getConceptsData(encodeURI(urlConceptos));//hace el llamado al dominio donde retornara respuesta de la funcion
         this.getChartData(encodeURI(urlChart));//hace el llamado al dominio donde retornara respuesta de la funcion
         if(search !== ""){
             this.setState({
@@ -560,9 +560,7 @@ class App extends Component {
             titulo : ("IMPORTES DE LOS MESES DEL AÑO " + this.state.anio)
         });
         this.getChartData('https://back-estadisticas.herokuapp.com/apiController/devolverAnioImporte/?year='+this.state.anio);//hace el llamado al dominio donde retornara respuesta de la funcion
-    }
         this.getTableData('https://back-estadisticas.herokuapp.com/ApiController/tablaYear/?year='+this.state.anio);//hace el llamado al dominio donde retornara respuesta de la funcion
-    }
     }
 
     render() { // render  del modulo estadistico
