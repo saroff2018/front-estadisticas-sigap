@@ -3,7 +3,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 class BtnExport extends Component{
-    
+
     constructor(props){
         super(props);
         this.state = {
@@ -42,6 +42,16 @@ class BtnExport extends Component{
             var Hora = marcacion.getHours()
             var Minutos = marcacion.getMinutes()
             var Segundos = marcacion.getSeconds()
+            /*var Dia = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado"];
+            var Mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+                    "Octubre", "Noviembre", "Diciembre"];*/
+            var Hoy = new Date();
+            var Anio = Hoy.getFullYear();
+            var month=Hoy.getMonth()+1;
+            if (month<10){
+                month="0"+month;
+            }
+            var Fecha = Hoy.getDate() + "/" + month + "/" + Anio;
             var dn = "a.m"
                 if (Hora > 12) {
                     dn = "p.m"
@@ -67,8 +77,11 @@ class BtnExport extends Component{
                 doc.text(150,15,"Usuario: ");
                 doc.text(170,15,user);
 
-                doc.text(150,22,"Hora: ");
-                doc.text(170,22,marcHora);
+                doc.text(150,22,"Fecha: ");
+                doc.text(170,22,Fecha);
+
+                doc.text(150,29,"Hora: ");
+                doc.text(170,29,marcHora);
 
                 pie(doc,nombreSistema,version);
 
@@ -81,12 +94,7 @@ class BtnExport extends Component{
             var nombreSistema = "SIGAP";
             var version = "1.0";
             var doc=Format(usuario);
-            var Dia = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado"];
-            var Mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
-                    "Octubre", "Noviembre", "Diciembre"];
-            var Hoy = new Date();
-            var Anio = Hoy.getFullYear();
-            var Fecha = Dia[Hoy.getDay()] + ", " + Hoy.getDate() + " de " + Mes[Hoy.getMonth()] + " de " + Anio + ". ";
+
 
             const input = document.getElementById(graf);
             if(input!==null){
@@ -102,7 +110,6 @@ class BtnExport extends Component{
                         doc.addImage(imgData, 'PNG', 10, 50,width,height);
                     })
                 ;
-                doc.text(110,200,"Ciudad Universitaria, "+Fecha);
 
                 setTimeout(function(){
                     doc.output('save', 'ReporteGrafica.pdf');
