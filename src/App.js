@@ -601,6 +601,7 @@ class App extends Component {
                                                     <option value="fecha">FECHA A FECHA</option>
                                                     <option value="months">MES A MES</option>
                                                     <option value="years">AÑO A AÑO</option>
+                                                    <option value="semester">SEMESTRE</option>  
                                                 </select>
                                             </div>
                                             <hr></hr>
@@ -646,6 +647,8 @@ class App extends Component {
                                                 <select className="form-control" value={this.state.infoType} onChange={this.handleChangeInfoType}>
                                                     <option value="importes">Importes</option>
                                                     <option value="operaciones">Numero de operaciones</option>
+                                                    <option value="ingresosemestre">Ingresos por semestre</option>
+                                                    <option value="ingresoprograma">Ingresos por programa</option>
                                                 </select>
                                             </div>
                                         </form>
@@ -711,6 +714,8 @@ class App extends Component {
                                                 (null):(null)
                                             }
                                         </Tab>
+                                    <Tab label="Reporte">
+                                    </Tab>    
                                     </Tabs>
                                 </div>
                             </div>
