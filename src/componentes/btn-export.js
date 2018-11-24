@@ -31,7 +31,7 @@ class BtnExport extends Component{
         }
         function Format(usuario) {
             var doc = new jsPDF();
-            var nombreUniversidad = "Universidad Nacional Mayor de San Marcos";
+            var nombreUniversidad = "Universidad Nacional Mayor de San Marcos UNMSM";
             var nombreFacultad = "Facultad de Ingeniería de Sistemas e Informática";
             var nombreUnidad = "Unidad de Postgrado";
             var user = usuario;
